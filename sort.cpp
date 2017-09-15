@@ -43,50 +43,55 @@ void QuickSort(int *arr, unsigned int N, int L, int R)
 	}
 }
 
-void merge(int *arr, int n)
+void Merge(int *massL, int lenL, int *massR, int lenR, int *mass)
 {
-	int mid = n / 2;
-	if (n % 2 == 1)
-		mid++;
-	int h = 1; 
-	int *c = (int*)malloc(n * sizeof(int));
-	int step;
-	while (h < n)
-	{
-		step = h;
-		int i = 0;  
-		int j = mid; 
-		int k = 0;   
-		while (step <= mid)
+	int j=0, i=0, k=0;
+	while(i<lenL && j<lenR)
+	{  
+		m++;
+		if(massL[i]<=massR[j])
+		{   
+			mass[k]=massL[i];
+			i++;  
+	    }
+		else
 		{
-			while ((i < step) && (j < n) && (j < (mid + step)))
-			{ 
-				if (arr[i] < arr[j])
-				{
-					c[k] = arr[i];
-					i++; k++;
-				}
-				else {
-					c[k] = arr[j];
-					j++; k++;
-				}
-			}
-			while (i < step)
-			{   
-				c[k] = arr[i];
-				i++; k++;
-			}
-			while ((j < (mid + step)) && (j<n))
-			{  
-				c[k] = arr[j];
-				j++; k++;
-			}
-			step = step + h; 
+            mass[k]=massR[j];
+			j++;
 		}
-		h = h * 2;
-		for (i = 0; i<n; i++)
-			arr[i] = c[i];
+		k++;
 	}
+		while(i<lenL)
+		{
+			m++;
+			mass[k]=massL[i];
+			i++; k++;
+		}
+		while(j<lenR)
+		{
+			m++;
+			mass[k]=massR[j];
+			j++; k++;
+		}
+}
+
+void Mengesort(int *mass, int n)
+{
+	if(n<2) return;
+	int len= n/2;
+	int *massL = new int [len];
+	int *massR = new int [n-len];
+
+	for(int i=0; i<len; i++)
+        massL[i]=mass[i];
+
+    for(int i=len; i<n;  i++)
+		massR[i-len]=mass[i];
+
+	Mengesort(massL, len);
+	Mengesort(massR, n-len);
+	Merge(massL, len, massR, n-len, mass);
+
 }
 
 
@@ -166,8 +171,8 @@ int main()
 
 		t = clock();
 	    if(vybir==1){   bubblesort1(mass, n);      }
-        if(vybir==2){     merge(mass, n);      }
-        if(vybir==3){    heapSort(mass, int n)      }
+        if(vybir==2){     Mengesort(mass, n);      }
+        if(vybir==3){    heapSort(mass, n);      }
 		if(vybir==4){ QuickSort(mass, n, 0, n - 1);  }
 		t = clock() - t;
 		T=(float)t/ CLOCKS_PER_SEC;
