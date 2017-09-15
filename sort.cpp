@@ -48,7 +48,6 @@ void Merge(int *massL, int lenL, int *massR, int lenR, int *mass)
 	int j=0, i=0, k=0;
 	while(i<lenL && j<lenR)
 	{  
-		m++;
 		if(massL[i]<=massR[j])
 		{   
 			mass[k]=massL[i];
@@ -63,13 +62,11 @@ void Merge(int *massL, int lenL, int *massR, int lenR, int *mass)
 	}
 		while(i<lenL)
 		{
-			m++;
 			mass[k]=massL[i];
 			i++; k++;
 		}
 		while(j<lenR)
 		{
-			m++;
 			mass[k]=massR[j];
 			j++; k++;
 		}
