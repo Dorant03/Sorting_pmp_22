@@ -7,6 +7,42 @@ void print(int *mass, int n)
 	cout<<endl;
 }
 
+void MaxHeapify(int A[], int n, int i)
+{
+    int largest = i;  
+    int l = 2*i + 1;
+    int r = 2*i + 2; 
+    if (l < n && A[l] > A[largest])
+        largest = l;
+    if (r < n && A[r] > A[largest])
+        largest = r;
+    if (largest != i)
+    {
+        swap(A[i], A[largest]);
+        MaxHeapify(A, n, largest);
+    }
+}
+  
+void BuildMaxHeap(int A[], int n)
+{
+    int i;
+    for (i=(n/2)-1;i>=0;i--)
+	{
+        MaxHeapify(A, n, i);
+    }
+}
+
+void heapSort(int A[], int n)
+{
+    int i;
+    BuildMaxHeap(A, n);
+    for (i=n-1; i>=0; i--)
+    {
+        swap(A[0], A[i]);
+        int heap_size= i;
+        MaxHeapify(A, heap_size, 0);
+    }
+}
 
 int main()
 {
@@ -32,7 +68,7 @@ int main()
 		t = clock();
 	    if(vybir==1){           }
         if(vybir==2){           }
-        if(vybir==3){          }
+        if(vybir==3){    heapSort(mass, int n)      }
 		if(vybir==4){   }
 		t = clock() - t;
 		T=(float)t/ CLOCKS_PER_SEC;
