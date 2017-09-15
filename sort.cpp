@@ -7,6 +7,89 @@ void print(int *mass, int n)
 	cout<<endl;
 }
 
+void QuickSort(int *arr, unsigned int N, int L, int R) 
+{
+	int i = L,
+		j = R;
+	int m = (R + L) / 2;
+	int x = arr[m];
+	int w;
+	do
+	{
+		while (arr[i]<x)
+		{
+			i++;
+		}
+		while (x < arr[j])
+		{
+			j--;
+		}
+		if (i <= j)
+		{
+			w = arr[i];
+			arr[i] = arr[j];
+			arr[j] = w;
+			i++;
+			j--;
+		}
+	} while (i < j);
+	if (L < j)
+	{
+		QuickSort(arr, N, L, j);
+	}
+	if (i < R)
+	{
+		QuickSort(arr, N, i, R);
+	}
+}
+
+void merge(int *arr, int n)
+{
+	int mid = n / 2;
+	if (n % 2 == 1)
+		mid++;
+	int h = 1; 
+	int *c = (int*)malloc(n * sizeof(int));
+	int step;
+	while (h < n)
+	{
+		step = h;
+		int i = 0;  
+		int j = mid; 
+		int k = 0;   
+		while (step <= mid)
+		{
+			while ((i < step) && (j < n) && (j < (mid + step)))
+			{ 
+				if (arr[i] < arr[j])
+				{
+					c[k] = arr[i];
+					i++; k++;
+				}
+				else {
+					c[k] = arr[j];
+					j++; k++;
+				}
+			}
+			while (i < step)
+			{   
+				c[k] = arr[i];
+				i++; k++;
+			}
+			while ((j < (mid + step)) && (j<n))
+			{  
+				c[k] = arr[j];
+				j++; k++;
+			}
+			step = step + h; 
+		}
+		h = h * 2;
+		for (i = 0; i<n; i++)
+			arr[i] = c[i];
+	}
+}
+
+
 int* bubblesort1(int *mas, int m)//В порядку зростання
 {
 	int c;
@@ -83,9 +166,9 @@ int main()
 
 		t = clock();
 	    if(vybir==1){   bubblesort1(mass, n);      }
-        if(vybir==2){           }
+        if(vybir==2){     merge(mass, n);      }
         if(vybir==3){    heapSort(mass, int n)      }
-		if(vybir==4){   }
+		if(vybir==4){ QuickSort(mass, n, 0, n - 1);  }
 		t = clock() - t;
 		T=(float)t/ CLOCKS_PER_SEC;
 		cout<<"Result:"<<endl;
