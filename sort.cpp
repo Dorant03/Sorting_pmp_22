@@ -7,6 +7,22 @@ void print(int *mass, int n)
 	cout<<endl;
 }
 
+int* bubblesort1(int *mas, int m)//В порядку зростання
+{
+	int c;
+	for (int i = 0; i < m - 1; ++i)
+	{
+		while (mas[i] > mas[i + 1])
+		{
+			c = mas[i + 1];
+			mas[i + 1] = mas[i];
+			mas[i] = c;
+			--i;
+		}
+	}
+	return mas;
+}
+
 void MaxHeapify(int A[], int n, int i)
 {
     int largest = i;  
@@ -66,7 +82,7 @@ int main()
 	    //print(mass, n);
 
 		t = clock();
-	    if(vybir==1){           }
+	    if(vybir==1){   bubblesort1(mass, n);      }
         if(vybir==2){           }
         if(vybir==3){    heapSort(mass, int n)      }
 		if(vybir==4){   }
@@ -83,3 +99,4 @@ int main()
 	}
 	cout<<"END"<<endl;
 }
+
